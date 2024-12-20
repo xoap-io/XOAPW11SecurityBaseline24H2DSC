@@ -1,6 +1,7 @@
 # XOAPW11SecurityBaseline24H2DSC
 
-This repository contains the **XOAPW11SecurityBaseline24H2DSC** DSC module.
+This repository contains the **XOAPW11SecurityBaseline24H2DSC** DSC module. 
+It covers all settings from official Microsoft Windows 11 Version 24h2 Security Baseline.
 
 ## Code of Conduct
 
@@ -48,13 +49,13 @@ Configuration 'XOAPW11SecurityBaseline24H2DSC'
     {
         Bitlocker 'Example'
         {
-            [bool]$UseEnhancedPin = $true,
-            [bool]$RDVDenyCrossOrg = $true,
-            [bool]$DisableExternalDMAUnderLock = $true,
-            [bool]$RDVDenyWriteAccess = $true,   
-            [bool]$DenyDeviceClasses = $true,    
-            [bool]$DenyDeviceClassesRetroactive = $true,   
-            [bool]$AllowMediaWriteAccess = $false
+            UseEnhancedPin = $true,
+            RDVDenyCrossOrg = $true,
+            DisableExternalDMAUnderLock = $true,
+            RDVDenyWriteAccess = $true,   
+            DenyDeviceClasses = $true,    
+            DenyDeviceClassesRetroactive = $true,   
+            AllowMediaWriteAccess = $false
         }
 
     }

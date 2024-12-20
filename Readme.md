@@ -1,6 +1,6 @@
-# XOAPModuleTemplateDSC
+# XOAPW11SecurityBaseline24H2DSC
 
-This repository is a template that can be used as a starting point for creating new DSC modules and resources.
+This repository contains the **XOAPW11SecurityBaseline24H2DSC** DSC module.
 
 ## Code of Conduct
 
@@ -12,48 +12,51 @@ Please check out common DSC Community [contributing guidelines](https://dsccommu
 
 ## Change log
 
-A full list of changes in each version can be found in the [change log](CHANGELOG.md).
-
-## Documentation
-
-This script is used to easily create new DSC modules and resources.
+A full list of changes in each version can be found in the  [Releases](https://github.com/xoap-io/XOAPSTIGAugust2023DSC/releases).
 
 ## Prerequisites
 
-Please install Plaster first and make sure it's present.
+Be sure that the following DSC modules are installed on your system:
 
-```powershell
-Install-Module Plaster
-Import-Module Plaster
-```
+- GPRegistryPolicyDsc (1.2.0)
+- AuditPolicyDSC (1.4.0.0)
+- SecurityPolicyDSC (2.10.0.0)
 
-## Create new DSC modules
+## Documentation
 
-Modules will be automatically created once you are creating a new DSC resource.
+The XOAP STIG January 2024 DSC module contains the following resources:
 
-## Create new DSC resources
+- Bitlocker
+- Computer
+- CredentialGuard
+- DomainSecurity
+- InternetExplorer11
+- WindowsDefender
 
-DSC resources can easily be deployed via the invocation of
+## Configuration example
 
-```powershell
-.\New-CompositeResource.ps1
-```
+To implement the Windows 11 24H2 Security Baseline module, add the following resources to your DSC configuration and adjust accordingly:
 
-with parameters
+### Bitlocker
 
-```powershell
-.\New-CompositeResource.ps1 -Module XOAPModuleTemplateDSC -Version 0.0.1 -Resource ScheduledTasks
-```
+```PowerShell
+Configuration 'XOAPW11SecurityBaseline24H2DSC'
+{
+    Import-DSCResource -Module 'XOAPW11SecurityBaseline24H2DSC' -Name 'Bitlocker' -ModuleVersion '0.0.1'
 
-The parameter list is as followed:
+    Node 'XOAPW11SecurityBaseline24H2DSC'
+    {
+        Bitlocker 'Example'
+        {
+            [bool]$UseEnhancedPin = $true,
+            [bool]$RDVDenyCrossOrg = $true,
+            [bool]$DisableExternalDMAUnderLock = $true,
+            [bool]$RDVDenyWriteAccess = $true,   
+            [bool]$DenyDeviceClasses = $true,    
+            [bool]$DenyDeviceClassesRetroactive = $true,   
+            [bool]$AllowMediaWriteAccess = $false
+        }
 
-| Parameter | Description                            | Note |
-|-----------|----------------------------------------|------|
-| Module    | Name of the outer module part          | -    |
-| Version   | Target version of the module           | -    |
-| Ressource | The name of the ressource /config part | -    |
-
-### Examples
-
-You can review the [Examples](/Examples/Resources) directory in the **XOAPModuleTemplateDSC** module
-for some general use scenarios for all the resources that are in the module.
+    }
+}
+XOAPW11SecurityBaseline24H2DSC -OutputPath 'C:\XOAPW11SecurityBaseline24H2DSC'
